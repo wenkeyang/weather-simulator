@@ -30,7 +30,7 @@ object TimezoneUtiles extends LoggingSupport {
   def generateBOMcalendar(): List[bomCalendar] = {
     val start = LocalDate.parse("2018-01-01")
     val end = LocalDate.parse("2018-12-31")
-    val mlist = for (a <- 1 until (start.until(end, ChronoUnit.DAYS) + 1).toInt)
+    val mlist = for (a <- 0 until (start.until(end, ChronoUnit.DAYS) + 1).toInt)
       yield {
         val temp = start.plusDays(a).toString
         bomCalendar(temp.split("-")(1), temp.split("-")(2))

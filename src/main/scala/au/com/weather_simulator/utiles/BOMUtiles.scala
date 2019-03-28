@@ -2,6 +2,7 @@ package au.com.weather_simulator.utiles
 
 import au.com.weather_simulator.utiles.TimezoneUtiles.generateBOMcalendar
 import org.apache.spark.sql.SparkSession
+import java.io._
 
 import scala.sys.process._
 import scala.util.Try
@@ -38,10 +39,10 @@ object BOMUtiles extends LoggingSupport {
 
   @throws(classOf[java.io.IOException])
   @throws(classOf[java.net.SocketTimeoutException])
-  def get(url: String,
-          connectTimeout: Int = 5000,
-          readTimeout: Int = 5000,
-          requestMethod: String = "GET") = {
+  private def getDatafromHttp(url: String,
+                              connectTimeout: Int = 5000,
+                              readTimeout: Int = 5000,
+                              requestMethod: String = "GET") = {
     import java.net.{HttpURLConnection, URL}
     val connection = (new URL(url)).openConnection.asInstanceOf[HttpURLConnection]
     connection.setConnectTimeout(connectTimeout)
@@ -53,20 +54,25 @@ object BOMUtiles extends LoggingSupport {
     content
   }
 
-  def main(args: Array[String]): Unit = {
-    val test = getweatherAverage("066062", "01", "01")
-
-
+  def extractLocationStatis(filename: String, site_code: String) = {
     val finaldataset = for (elem <- generateBOMcalendar) yield
-      getweatherAverage("066062", elem.cmonth, elem.cday)
+      getweatherAverage(site_code, elem.cmonth, elem.cday)
 
-        import java.io._
+    val filewriter = new BufferedWriter(new FileWriter("src\\main\\resources\\" + filename + ".csv"))
+    filewriter.write("monthday|maxtemp|mintemp|rainfall\n")
+    finaldataset.foreach(row => filewriter.write(s"${row.monthday}|${row.maxtemp}|${row.mintemp}|${row.rainfall}\n"))
+    filewriter.close()
+  }
 
-        val file = "C:\\temp\\weather-simulator\\src\\main\\resources\\data.txt"
-        val filewriter = new BufferedWriter(new FileWriter(file))
-        filewriter.write("monthday|maxtemp|mintemp|rainfall\n")
-        finaldataset.foreach(row => filewriter.write(s"${row.monthday}|${row.maxtemp}|${row.mintemp}|${row.rainfall}\n"))
-        filewriter.close()
+
+  def main(args: Array[String]): Unit = {
+    //066062  sydney
+    //086038  melbourne
+    //023000 adelaide
+    extractLocationStatis("sydney", "066062")
+    extractLocationStatis("melbourne", "086038")
+    extractLocationStatis("adelaide", "023000")
+
 
     //    val spark = SparkSession
     //      .builder()
