@@ -6,7 +6,7 @@ import scala.sys.process._
 import au.com.weather_simulator.typing.weatherAverage
 import au.com.weather_simulator.utiles.TimezoneUtiles.generateBOMcalendar
 
-object BOMUtiles extends LoggingSupport {
+object BomUtiles extends LoggingSupport {
 
 
   def getweatherAverage(site_id: String, mmonth: String, mday: String): weatherAverage = {
