@@ -1,5 +1,7 @@
 *.class
 *.log
-.idea
+.idea/
 target/
-project/target
+*.r1
+src/test/resources/write*
+null/
