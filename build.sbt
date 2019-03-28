@@ -24,7 +24,7 @@ libraryDependencies ++= Seq(
   "org.apache.hadoop" % "hadoop-client" % hadoopVersion % Provided,
 
   "com.typesafe" % "config" % "1.3.1",
-  "org.joda" % "joda-convert" % "1.9.2",
+//  "org.joda" % "joda-convert" % "1.9.2",
   "com.hubspot.jinjava" % "jinjava" % "2.4.0",
   "org.scala-lang.modules" %% "scala-xml" % "1.1.1",
   "net.sourceforge.htmlcleaner" % "htmlcleaner" % "2.22",
