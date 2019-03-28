@@ -13,13 +13,6 @@ val sparkVersion = sys.env.getOrElse("SPARK_VERSION", "2.4.0")
 val hadoopVersion = sys.env.getOrElse("HADOOP_VERSION", "2.8.5")
 
 unmanagedBase := baseDirectory.value / "src/main/scala/au/com/weather_simulator/libs"
-resolvers ++= Seq(
-  "edi-snapshots" at "https://artifacts.edi-pilot.ampaws.com.au/nexus/content/repositories/snapshots/",
-  "edi-releases" at "https://artifacts.edi-pilot.ampaws.com.au/nexus/content/repositories/releases/",
-  "edi-public" at "https://artifacts.edi-pilot.ampaws.com.au/nexus/content/repositories/public/",
-  "atlassian" at "https://packages.atlassian.com/maven/repository/public",
-  "talend" at "https://talend-update.talend.com/nexus/content/repositories/libraries"
-)
 
 addArtifact(artifact in(Compile, assembly), assembly)
 
