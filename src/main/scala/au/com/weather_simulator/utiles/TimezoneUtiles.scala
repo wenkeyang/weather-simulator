@@ -1,13 +1,12 @@
 package au.com.weather_simulator.utiles
 
-import java.text.SimpleDateFormat
 import java.time.LocalDate
+import java.text.SimpleDateFormat
 import java.time.temporal.ChronoUnit
 import java.util.{Calendar, TimeZone}
+import au.com.weather_simulator.typing.bomCalendar
 
 object TimezoneUtiles extends LoggingSupport {
-
-  case class bomCalendar(cmonth: String, cday: String)
 
   def generateTimeForSydney(): String = {
     val formatFile = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")

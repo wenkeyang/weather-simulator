@@ -1,4 +1,4 @@
-package au.com.weather_simulator.utiles
+package au.com.weather_simulator.typing
 
 object NotEmptyString {
   def unapply(s: String): Option[String] =

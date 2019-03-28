@@ -1,4 +1,4 @@
-package au.com.weather_simulator.utiles
+package au.com.weather_simulator.typing
 
 class ConditionsFormat extends Enumeration {
   type Format = Value

@@ -1,12 +1,9 @@
 package au.com.weather_simulator.utiles
 
 import org.apache.spark.sql.{DataFrame, Dataset, SaveMode, SparkSession}
+import au.com.weather_simulator.typing.{SparkReadException, SparkWriteException}
 
 object SparkUtiles extends LoggingSupport {
-
-  case class SparkReadException(message: String, cause: Throwable) extends Exception(message, cause)
-
-  case class SparkWriteException(message: String, cause: Throwable) extends Exception(message, cause)
 
   def readCSV(filePath: String)(implicit sparkSession: SparkSession): DataFrame = {
 

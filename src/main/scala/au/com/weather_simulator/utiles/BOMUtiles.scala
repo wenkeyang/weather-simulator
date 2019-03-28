@@ -3,11 +3,11 @@ package au.com.weather_simulator.utiles
 import java.io._
 import scala.util.Try
 import scala.sys.process._
+import au.com.weather_simulator.typing.weatherAverage
 import au.com.weather_simulator.utiles.TimezoneUtiles.generateBOMcalendar
 
 object BOMUtiles extends LoggingSupport {
 
-  case class weatherAverage(monthday: String, maxtemp: Double, mintemp: Double, rainfall: Double)
 
   def getweatherAverage(site_id: String, mmonth: String, mday: String): weatherAverage = {
     log.info(s"Extracing statis for stn_num=${site_id}&month=${mmonth}&day=${mday}")
