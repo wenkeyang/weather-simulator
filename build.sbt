@@ -24,11 +24,11 @@ resolvers ++= Seq(
 addArtifact(artifact in(Compile, assembly), assembly)
 
 libraryDependencies ++= Seq(
-  "org.apache.spark" %% "spark-core" % sparkVersion % Provided,
-  "org.apache.spark" %% "spark-sql" % sparkVersion % Provided,
-  "org.apache.spark" %% "spark-hive" % sparkVersion % Provided,
-  "org.apache.hadoop" % "hadoop-aws" % hadoopVersion % Provided,
-  "org.apache.hadoop" % "hadoop-client" % hadoopVersion % Provided,
+  "org.apache.spark" %% "spark-core" % sparkVersion,
+  "org.apache.spark" %% "spark-sql" % sparkVersion,
+  "org.apache.spark" %% "spark-hive" % sparkVersion,
+  "org.apache.hadoop" % "hadoop-aws" % hadoopVersion,
+  "org.apache.hadoop" % "hadoop-client" % hadoopVersion,
 
   "com.typesafe" % "config" % "1.3.1",
   "org.joda" % "joda-convert" % "1.9.2",
