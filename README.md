@@ -19,37 +19,55 @@ http://www.bom.gov.au/climate/data/
 
 <table class="tg">
   <tr>
-    <th class="tg-yw4l"><b>Animals</b></th>
-    <th class="tg-yw4l"><b>Sports</b></th>
-    <th class="tg-yw4l"><b>Fruits</b></th>
+    <th class="tg-yw4l"><b>Site Name:</b></th>
+    <th class="tg-yw4l">Sydney (Observatory Hill)</th>
   </tr>
-  <tr>
-    <td class="tg-yw4l">Cat</td>
-    <td class="tg-yw4l">Soccer</td>
-    <td class="tg-yw4l">Apple</td>
-  </tr>
-  <tr>
-    <td class="tg-yw4l">Dog</td>
-    <td class="tg-yw4l">Basketball</td>
-    <td class="tg-yw4l">Orange</td>
-  </tr>
+    <tr>
+      <th class="tg-yw4l"><b>Site_Code:</b></th>
+      <th class="tg-yw4l">066062</th>
+    </tr>
+      <tr>
+        <th class="tg-yw4l"><b>Geographic Location:</b></th>
+        <th class="tg-yw4l">-33.86, 151.2</th>
+      </tr>
 </table>
- 
-| Site Name: | Sydney (Observatory Hill) |
-| Site_Code: | 066062                    |
-| Location:  | -33.86, 151.2             |
+
 ![picture](src/main/resources/images/sydneyTempTrend.jpg)
 ![picture](src/main/resources/images/sydneyRainfallTrend.jpg)
 
-| Site Name: | Melbourne (Essendon Airport) |
-| Site_Code: | 086038                       |
-| Location:  | -37.73, 144.91               |
+<table class="tg">
+  <tr>
+    <th class="tg-yw4l"><b>Site Name:</b></th>
+    <th class="tg-yw4l">Melbourne (Essendon Airport)</th>
+  </tr>
+    <tr>
+      <th class="tg-yw4l"><b>Site_Code:</b></th>
+      <th class="tg-yw4l">086038</th>
+    </tr>
+      <tr>
+        <th class="tg-yw4l"><b>Geographic Location:</b></th>
+        <th class="tg-yw4l">-37.73, 144.91</th>
+      </tr>
+</table>
+
 ![picture](src/main/resources/images/melbourneTempTrend.jpg)
 ![picture](src/main/resources/images/melbourneRainfallTrend.jpg)
 
-| Site Name: | Adelaide (West Terrace / Ngayirdapira) |
-| Site_Code: | 023000                    |
-| Location:  | -34.93, 138.58             |
+<table class="tg">
+  <tr>
+    <th class="tg-yw4l"><b>Site Name:</b></th>
+    <th class="tg-yw4l">Adelaide (West Terrace / Ngayirdapira)</th>
+  </tr>
+    <tr>
+      <th class="tg-yw4l"><b>Site_Code:</b></th>
+      <th class="tg-yw4l">023000</th>
+    </tr>
+      <tr>
+        <th class="tg-yw4l"><b>Geographic Location:</b></th>
+        <th class="tg-yw4l">-34.93, 138.58</th>
+      </tr>
+</table>
+
 ![picture](src/main/resources/images/adelaideTempTrend.jpg)
 ![picture](src/main/resources/images/adelaideRainfallTrend.jpg)
 
