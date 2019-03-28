@@ -10,7 +10,7 @@ object BomUtiles extends LoggingSupport {
 
 
   def getweatherAverage(site_id: String, mmonth: String, mday: String): weatherAverage = {
-    log.info(s"Extracing statis for stn_num=${site_id}&month=${mmonth}&day=${mday}")
+    log.debug(s"Extracing statis for stn_num=${site_id}&month=${mmonth}&day=${mday}")
     val baseURL = s"http://www.bom.gov.au/jsp/ncc/cdio/calendar/climate-calendar?stn_num=${site_id}&month=${mmonth}&day=${mday}"
     val data = "curl " + baseURL !!
     val cleaned = weatherAverageWash(data)
@@ -67,7 +67,7 @@ object BomUtiles extends LoggingSupport {
     //066062  sydney
     //086038  melbourne
     //023000  adelaide
-    extractLocationStatis("sydney", "066062")
+    extractLocationStatis("sydney1", "066062")
     extractLocationStatis("melbourne", "086038")
     extractLocationStatis("adelaide", "023000")
 

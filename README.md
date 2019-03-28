@@ -17,12 +17,22 @@ http://www.bom.gov.au/jsp/ncc/cdio/weatherData/av?p_display_type=monthlyZippedDa
 
 http://www.bom.gov.au/climate/data/
 
+
+| Site Name: | Sydney (Observatory Hill) |
+| Site_Code: | 066062                    |
+| Location:  | -33.86, 151.2             |
 ![picture](src/main/resources/images/sydneyTempTrend.jpg)
 ![picture](src/main/resources/images/sydneyRainfallTrend.jpg)
 
+| Site Name: | Melbourne (Essendon Airport) |
+| Site_Code: | 086038                       |
+| Location:  | -37.73, 144.91               |
 ![picture](src/main/resources/images/melbourneTempTrend.jpg)
 ![picture](src/main/resources/images/melbourneRainfallTrend.jpg)
 
+| Site Name: | Adelaide (West Terrace / Ngayirdapira) |
+| Site_Code: | 023000                    |
+| Location:  | -34.93, 138.58             |
 ![picture](src/main/resources/images/adelaideTempTrend.jpg)
 ![picture](src/main/resources/images/adelaideRainfallTrend.jpg)
 
