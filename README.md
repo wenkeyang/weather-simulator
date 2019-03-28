@@ -16,3 +16,15 @@ https://samples.openweathermap.org/data/2.5/history/city?id=2147714&type=hour&ap
 http://www.bom.gov.au/jsp/ncc/cdio/weatherData/av?p_display_type=monthlyZippedDataFile&p_stn_num=066062&p_c=-872833409&p_nccObsCode=36&p_startYear=
 
 http://www.bom.gov.au/climate/data/
+
+![picture](src/main/resources/sydneyTempTrend.jpg)
+![picture](src/main/resources/sydneyRainfallTrend.jpg)
+
+![picture](src/main/resources/melbourneTempTrend.jpg)
+![picture](src/main/resources/melbourneRainfallTrend.jpg)
+
+![picture](src/main/resources/adelaideTempTrend.jpg)
+![picture](src/main/resources/adelaideRainfallTrend.jpg)
+
+Another try?s
+![alt text](src/main/resources/sydneyTempTrend.jpg)
