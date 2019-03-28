@@ -17,14 +17,12 @@ http://www.bom.gov.au/jsp/ncc/cdio/weatherData/av?p_display_type=monthlyZippedDa
 
 http://www.bom.gov.au/climate/data/
 
-![picture](src/main/resources/sydneyTempTrend.jpg)
-![picture](src/main/resources/sydneyRainfallTrend.jpg)
+![picture](src/main/resources/images/sydneyTempTrend.jpg)
+![picture](src/main/resources/images/sydneyRainfallTrend.jpg)
 
-![picture](src/main/resources/melbourneTempTrend.jpg)
-![picture](src/main/resources/melbourneRainfallTrend.jpg)
+![picture](src/main/resources/images/melbourneTempTrend.jpg)
+![picture](src/main/resources/images/melbourneRainfallTrend.jpg)
 
-![picture](src/main/resources/adelaideTempTrend.jpg)
-![picture](src/main/resources/adelaideRainfallTrend.jpg)
+![picture](src/main/resources/images/adelaideTempTrend.jpg)
+![picture](src/main/resources/images/adelaideRainfallTrend.jpg)
 
-Another try?s
-![alt text](src/main/resources/sydneyTempTrend.jpg)
