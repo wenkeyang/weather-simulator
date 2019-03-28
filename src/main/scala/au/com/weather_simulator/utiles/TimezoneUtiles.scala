@@ -8,21 +8,14 @@ import au.com.weather_simulator.typing.bomCalendar
 
 object TimezoneUtiles extends LoggingSupport {
 
-  def generateTimeForSydney(): String = {
-    val formatFile = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-    formatFile.setTimeZone(TimeZone.getTimeZone("Australia/Sydney"))
-    formatFile.format(Calendar.getInstance().getTime)
-  }
+  val standardPattern = "yyyy-MM-dd HH:mm:ss"
+  val timeZone_Sydney = "Australia/Sydney"
+  val timeZone_Melbourne = "Australia/Melbourne"
+  val timeZone_Adelaide = "Australia/Adelaide"
 
-  def generateTimeForMelbourne(): String = {
-    val formatFile = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-    formatFile.setTimeZone(TimeZone.getTimeZone("Australia/Melbourne"))
-    formatFile.format(Calendar.getInstance().getTime)
-  }
-
-  def generateTimeForAdelaide(): String = {
-    val formatFile = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-    formatFile.setTimeZone(TimeZone.getTimeZone("Australia/Adelaide"))
+  def generateTimeZoneTime(timezone: String): String = {
+    val formatFile = new SimpleDateFormat(standardPattern)
+    formatFile.setTimeZone(TimeZone.getTimeZone(timezone))
     formatFile.format(Calendar.getInstance().getTime)
   }
 
