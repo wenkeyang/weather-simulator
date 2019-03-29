@@ -29,21 +29,21 @@ object Run {
     val set2 = spark.sql(
       """
         |with outtab as (
+        | select
+        |        get_station(location) as station,
+        |        get_timestamp(monthday,location) as whole_time ,
+        |        get_temp(mintemp,maxtemp) as temprature,
+        |        get_pressure() as pressure,
+        |        get_humidity() as humidy
+        | from bomstatis)
         |select
-        |       get_station(location) as station,
-        |       get_timestamp(monthday,location) as whole_time ,
-        |       get_temp(mintemp,maxtemp) as temprature,
-        |       get_pressure() as pressure,
-        |       get_humidity() as humidy
-        |from bomstatis)
-        |select
-        |       split(station, "[|]")[0] as station_name,
-        |       split(station, "[|]")[1] as geoloc,
-        |       whole_time,
-        |       get_condition (cast(replace(temprature,'+','') as double), cast(humidy as int) ) as Condition,
-        |       temprature,
-        |       pressure,
-        |       humidy
+        |       split(station, "[|]")[0] as Location,
+        |       split(station, "[|]")[1] as Position,
+        |       whole_time as Local_Time,
+        |       get_condition (cast(replace(temprature,'+','') as double), cast(humidy as int) ) as Conditions,
+        |       temprature as Temprature,
+        |       pressure as Pressure,
+        |       humidy as Humidity
         |from outtab
       """.stripMargin)
 
