@@ -1,16 +1,16 @@
 package au.com.weather_simulator
 
-import java.util.Random
-
-import au.com.weather_simulator.operations.ConditionsFormat
-import au.com.weather_simulator.utiles.SparkUtiles
-import utiles.SparkUtiles._
-import org.apache.spark.sql.functions.{col, row_number, udf}
+import au.com.weather_simulator.utiles.SparkUtiles._
 import au.com.weather_simulator.operations.UdfBuilders._
+import au.com.weather_simulator.operations.LocationsFormat
+import au.com.weather_simulator.utiles.BomUtiles.extractLocationStatis
 
 object Run {
   def main(args: Array[String]): Unit = {
 
+    /*    extractLocationStatis(LocationsFormat.Sydney.toString, "066062", "2018-01-01", "2018-02-03")
+        extractLocationStatis(LocationsFormat.Melbourne.toString, "086038", "2018-06-07", "2018-09-13")
+        extractLocationStatis(LocationsFormat.Adelaide.toString, "023000", "2018-11-02", "2018-12-13")*/
 
     implicit val spark = getSparkSession("weather-simulator")
 
@@ -22,71 +22,35 @@ object Run {
     spark.udf.register("get_timeStamp", generateTimeStamp)
 
 
-    val sydney = SparkUtiles.readCSV("src/main/resources/bomstatis/")
+    val sydney = readCSV("src/main/resources/bomstatis/")
     sydney.printSchema()
-    sydney.createOrReplaceTempView("sydney")
-
-    spark.sql(
-      """
-        |select get_station(location) as station,
-        |       get_timestamp(monthday,location) as whole_time ,
-        |       get_temp(mintemp,maxtemp) as temprature,
-        |       get_pressure() as pressure,
-        |       get_humidity() as humidy
-        |from sydney
-      """.stripMargin).show(100, false)
-
+    sydney.createOrReplaceTempView("bomstatis")
 
     val set2 = spark.sql(
       """
-        |with tab as (
+        |with outtab as (
         |select
         |       get_station(location) as station,
         |       get_timestamp(monthday,location) as whole_time ,
         |       get_temp(mintemp,maxtemp) as temprature,
         |       get_pressure() as pressure,
         |       get_humidity() as humidy
-        |from sydney)
+        |from bomstatis)
         |select
-        |split(station, "[|]")[0] as station_name,
-        |split(station, "[|]")[1] as geoloc,
-        |whole_time,
-        |get_condition (cast(replace(temprature,'+','') as double), cast(humidy as int) ) as Condition,
-        |temprature,
-        |pressure,
-        |humidy
-        |from tab
+        |       split(station, "[|]")[0] as station_name,
+        |       split(station, "[|]")[1] as geoloc,
+        |       whole_time,
+        |       get_condition (cast(replace(temprature,'+','') as double), cast(humidy as int) ) as Condition,
+        |       temprature,
+        |       pressure,
+        |       humidy
+        |from outtab
       """.stripMargin)
 
     set2.show(20, false)
 
-    SparkUtiles.writeCSV(set2, "src\\main\\resources\\output")
-
-
-    //    spark.sql(
-    //      """
-    //        |select monthday, maxtemp, mintemp ,
-    //        |get_temp(mintemp,maxtemp) as emutemp
-    //        | from sydney
-    //      """.stripMargin).show
-    //
-    //    spark.sql(
-    //      """
-    //        |select get_Station("Sydney")
-    //      """.stripMargin).show(100, false)
+    writeCSV(set2, "src\\main\\resources\\output")
 
     spark.close()
-
-
-
-
-    //    val rangeMin = 2.2
-    //    val rangeMax = 3.5
-    //    val r = new Random()
-    //    var randomValue = rangeMin + (rangeMax - rangeMin) * r.nextDouble()
-    //
-    //    for (x <- 1 until 100)
-    //      println(rangeMin + (rangeMax - rangeMin) * r.nextDouble())
-
   }
 }

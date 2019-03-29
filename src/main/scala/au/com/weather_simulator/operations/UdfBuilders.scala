@@ -1,8 +1,7 @@
 package au.com.weather_simulator.operations
 
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.util.{Calendar, Random, TimeZone}
+import java.util.{Random, TimeZone}
 
 import au.com.weather_simulator.utiles.LoggingSupport
 import au.com.weather_simulator.utiles.TimezoneUtiles._
@@ -48,10 +47,5 @@ object UdfBuilders extends LoggingSupport {
 
   private def randomInt(bound: Int): String = {
     (new Random().nextInt(bound) + 1).toString
-  }
-
-  def main(args: Array[String]): Unit = {
-    val x = generateTimeStamp("2018-01-01", "Sydney")
-    println(x)
   }
 }

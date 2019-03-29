@@ -31,11 +31,4 @@ object TimezoneUtiles extends LoggingSupport {
       }
     mlist.toList
   }
-
-  def main(args: Array[String]): Unit = {
-
-    val x = generateBOMcalendar("2018-01-02", "2018-03-01")
-
-    x.foreach(println)
-  }
 }

@@ -52,6 +52,5 @@ object SparkUtiles extends LoggingSupport {
       .config("spark.history.ui.port", random(18000, 19000))
       .config("spark.sql.crossJoin.enabled", true)
       .getOrCreate()
-
   }
 }
