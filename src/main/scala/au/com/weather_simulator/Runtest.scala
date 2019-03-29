@@ -2,34 +2,37 @@ package au.com.weather_simulator
 
 import java.util.Random
 
+import au.com.weather_simulator.operations.ConditionsFormat
 import au.com.weather_simulator.utiles.SparkUtiles
 import utiles.SparkUtiles._
 import org.apache.spark.sql.functions.{col, row_number, udf}
-
+import au.com.weather_simulator.operations.UdfBuilders._
 object Runtest {
   def main(args: Array[String]): Unit = {
     println("Hello world")
 
-    implicit val spark = getSparkSession("localTest")
-
-    spark.udf.register("rand_temp", (rangeMin: Double, rangeMax: Double) => {
-      rangeMin + (rangeMax - rangeMin) * new Random().nextDouble()
-    })
-
-    val sydney = SparkUtiles.readCSV("src/main/resources/sydney.csv")
-    sydney.printSchema()
-    sydney.createOrReplaceTempView("sydney")
+      val fileFormat: ConditionsFormat.Value =ConditionsFormat.Rain
+    println(fileFormat)
 
 
-    spark.sql(
-      """
-        |select monthday, maxtemp, mintemp ,
-        | cast(rand_temp(mintemp,maxtemp) as DECIMAL(8,1)) as emutemp
-        | from sydney
-      """.stripMargin).show
-
-
-    spark.close()
+//    implicit val spark = getSparkSession("localTest")
+//
+//    spark.udf.register("rand_temp", generateRandomTemp)
+//
+//    val sydney = SparkUtiles.readCSV("src/main/resources/sydney.csv")
+//    sydney.printSchema()
+//    sydney.createOrReplaceTempView("sydney")
+//
+//
+//    spark.sql(
+//      """
+//        |select monthday, maxtemp, mintemp ,
+//        | cast(rand_temp(mintemp,maxtemp) as DECIMAL(8,1)) as emutemp
+//        | from sydney
+//      """.stripMargin).show
+//
+//
+//    spark.close()
 
 
 

@@ -4,7 +4,7 @@ import java.time.LocalDate
 import java.text.SimpleDateFormat
 import java.time.temporal.ChronoUnit
 import java.util.{Calendar, TimeZone}
-import au.com.weather_simulator.typing.bomCalendar
+import au.com.weather_simulator.typing.BomCalendar
 
 object TimezoneUtiles extends LoggingSupport {
 
@@ -19,13 +19,13 @@ object TimezoneUtiles extends LoggingSupport {
     formatFile.format(Calendar.getInstance().getTime)
   }
 
-  def generateBOMcalendar(start_date: String, end_date: String): List[bomCalendar] = {
+  def generateBOMcalendar(start_date: String, end_date: String): List[BomCalendar] = {
     val start = LocalDate.parse(start_date)
     val end = LocalDate.parse(end_date)
     val mlist = for (a <- 0 until (start.until(end, ChronoUnit.DAYS) + 1).toInt)
       yield {
         val temp = start.plusDays(a).toString
-        bomCalendar(temp.split("-")(1), temp.split("-")(2))
+        BomCalendar(temp.split("-")(1), temp.split("-")(2))
       }
     mlist.toList
   }

@@ -3,18 +3,17 @@ package au.com.weather_simulator.utiles
 import java.io._
 import scala.util.Try
 import scala.sys.process._
-import au.com.weather_simulator.typing.weatherAverage
+import au.com.weather_simulator.typing.WeatherAverageStatis
 import au.com.weather_simulator.utiles.TimezoneUtiles.generateBOMcalendar
 
 object BomUtiles extends LoggingSupport {
 
-
-  def getweatherAverage(site_id: String, mmonth: String, mday: String): weatherAverage = {
+  def getweatherAverage(site_id: String, mmonth: String, mday: String): WeatherAverageStatis = {
     log.debug(s"Extracing statis for stn_num=${site_id}&month=${mmonth}&day=${mday}")
     val baseURL = s"http://www.bom.gov.au/jsp/ncc/cdio/calendar/climate-calendar?stn_num=${site_id}&month=${mmonth}&day=${mday}"
     val data = "curl " + baseURL !!
     val cleaned = weatherAverageWash(data)
-    weatherAverage(s"$mmonth-$mday", cleaned._1, cleaned._2, cleaned._3)
+    WeatherAverageStatis(s"$mmonth-$mday", cleaned._1, cleaned._2, cleaned._3)
   }
 
   private def weatherAverageWash(data: String): (Double, Double, Double) = {
@@ -62,12 +61,11 @@ object BomUtiles extends LoggingSupport {
     filewriter.close()
   }
 
-
   def main(args: Array[String]): Unit = {
     //066062  sydney
     //086038  melbourne
     //023000  adelaide
-    extractLocationStatis("sydney1", "066062")
+    extractLocationStatis("sydney", "066062")
     extractLocationStatis("melbourne", "086038")
     extractLocationStatis("adelaide", "023000")
 

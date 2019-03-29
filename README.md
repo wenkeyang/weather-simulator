@@ -23,7 +23,7 @@ http://www.bom.gov.au/climate/data/
     <th class="tg-yw4l">Sydney (Observatory Hill)</th>
   </tr>
   <tr>
-    <th class="tg-yw4l"><b>Site_Code:</b></th>
+    <th class="tg-yw4l"><b>Site Code:</b></th>
     <th class="tg-yw4l">066062</th>
   </tr>
   <tr>
@@ -31,8 +31,8 @@ http://www.bom.gov.au/climate/data/
     <th class="tg-yw4l">-33.86, 151.2</th>
   </tr>
   <tr>
-    <th class="tg-yw4l"><b>Sydney Temp Trend</b></th>
-    <th class="tg-yw4l">![picture](src/main/resources/images/sydneyTempTrend.jpg)</th>
+    <th class="tg-yw4l"><b>Elevation:</b></th>
+    <th class="tg-yw4l">39</th>
   </tr>
 </table>
 
@@ -45,12 +45,16 @@ http://www.bom.gov.au/climate/data/
     <th class="tg-yw4l">Melbourne (Essendon Airport)</th>
   </tr>
   <tr>
-    <th class="tg-yw4l"><b>Site_Code:</b></th>
+    <th class="tg-yw4l"><b>Site Code:</b></th>
     <th class="tg-yw4l">086038</th>
   </tr>
   <tr>
     <th class="tg-yw4l"><b>Geographic Location:</b></th>
     <th class="tg-yw4l">-37.73, 144.91</th>
+  </tr>
+  <tr>
+    <th class="tg-yw4l"><b>Elevation:</b></th>
+    <th class="tg-yw4l">78</th>
   </tr>
 </table>
 
@@ -63,12 +67,16 @@ http://www.bom.gov.au/climate/data/
     <th class="tg-yw4l">Adelaide (West Terrace / Ngayirdapira)</th>
   </tr>
   <tr>
-    <th class="tg-yw4l"><b>Site_Code:</b></th>
+    <th class="tg-yw4l"><b>Site Code:</b></th>
     <th class="tg-yw4l">023000</th>
   </tr>
   <tr>
     <th class="tg-yw4l"><b>Geographic Location:</b></th>
     <th class="tg-yw4l">-34.93, 138.58</th>
+  </tr>
+  <tr>
+    <th class="tg-yw4l"><b>Elevation:</b></th>
+    <th class="tg-yw4l">29</th>
   </tr>
 </table>
 
