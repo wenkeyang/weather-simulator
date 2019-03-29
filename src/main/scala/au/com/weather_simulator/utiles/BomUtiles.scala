@@ -10,7 +10,7 @@ import au.com.weather_simulator.utiles.TimezoneUtiles.generateBOMcalendar
 
 object BomUtiles extends LoggingSupport {
 
-  def getweatherAverage(site_id: String, bomcalendar: BomCalendar): WeatherAverageStatis = {
+  private[utiles] def getweatherAverage(site_id: String, bomcalendar: BomCalendar): WeatherAverageStatis = {
     log.debug(s"Extracing statis for stn_num=${site_id}&month=${bomcalendar.cmonth}&day=${bomcalendar.cday}")
     val baseURL = s"http://www.bom.gov.au/jsp/ncc/cdio/calendar/climate-calendar?stn_num=${site_id}&month=${bomcalendar.cmonth}&day=${bomcalendar.cday}"
     val data = "curl " + baseURL !!
@@ -18,7 +18,7 @@ object BomUtiles extends LoggingSupport {
     WeatherAverageStatis(s"${bomcalendar.timestamp}", cleaned._1, cleaned._2, cleaned._3)
   }
 
-  private def weatherAverageWash(data: String): (Double, Double, Double) = {
+  private[utiles] def weatherAverageWash(data: String): (Double, Double, Double) = {
     val point1 = data.indexOf("""<table class="table-basic" id="typical1" summary="">""")
     val point2 = data.indexOf("""</table>""", point1) + "</table>".length
     val subst = data.substring(point1, point2)
@@ -32,16 +32,16 @@ object BomUtiles extends LoggingSupport {
     (getDoublevalue(temp(1)), getDoublevalue(temp(3)), getDoublevalue(temp(5)))
   }
 
-  private def getDoublevalue(value: String): Double = {
+  private[utiles] def getDoublevalue(value: String): Double = {
     Try(value.toDouble).getOrElse(0)
   }
 
   @throws(classOf[java.io.IOException])
   @throws(classOf[java.net.SocketTimeoutException])
-  private def getDatafromHttp(url: String,
-                              connectTimeout: Int = 5000,
-                              readTimeout: Int = 5000,
-                              requestMethod: String = "GET") = {
+  private[utiles] def getDatafromHttp(url: String,
+                                      connectTimeout: Int = 5000,
+                                      readTimeout: Int = 5000,
+                                      requestMethod: String = "GET") = {
     import java.net.{HttpURLConnection, URL}
     val connection = (new URL(url)).openConnection.asInstanceOf[HttpURLConnection]
     connection.setConnectTimeout(connectTimeout)

@@ -45,7 +45,7 @@ object UdfBuilders extends LoggingSupport {
     formatFile.format(new SimpleDateFormat(randomTimePattern).parse(whole_date))
   }
 
-  private def randomInt(bound: Int): String = {
+  private[operations] def randomInt(bound: Int): String = {
     (new Random().nextInt(bound) + 1).toString
   }
 }
