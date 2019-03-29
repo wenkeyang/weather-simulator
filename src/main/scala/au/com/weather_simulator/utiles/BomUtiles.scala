@@ -2,6 +2,8 @@ package au.com.weather_simulator.utiles
 
 import java.io._
 
+import au.com.weather_simulator.operations.LocationsFormat
+
 import scala.util.Try
 import scala.sys.process._
 import au.com.weather_simulator.typing.{BomCalendar, WeatherAverageStatis}
@@ -56,9 +58,9 @@ object BomUtiles extends LoggingSupport {
     val finaldataset = for (elem <- generateBOMcalendar(start_date, end_date)) yield
       getweatherAverage(site_code, elem)
 
-    val filewriter = new BufferedWriter(new FileWriter("src\\main\\resources\\" + filename + ".csv"))
-    filewriter.write("monthday|maxtemp|mintemp|rainfall\n")
-    finaldataset.foreach(row => filewriter.write(s"${row.monthday}|${row.maxtemp}|${row.mintemp}|${row.rainfall}\n"))
+    val filewriter = new BufferedWriter(new FileWriter("src\\main\\resources\\bomstatis\\" + filename + ".csv"))
+    filewriter.write("location|monthday|maxtemp|mintemp|rainfall\n")
+    finaldataset.foreach(row => filewriter.write(s"${filename}|${row.monthday}|${row.maxtemp}|${row.mintemp}|${row.rainfall}\n"))
     filewriter.close()
   }
 
@@ -66,9 +68,9 @@ object BomUtiles extends LoggingSupport {
     //066062  sydney
     //086038  melbourne
     //023000  adelaide
-    extractLocationStatis("sydney", "066062")
-    extractLocationStatis("melbourne", "086038")
-    extractLocationStatis("adelaide", "023000")
+    extractLocationStatis(LocationsFormat.Sydney.toString, "066062", "2018-01-01", "2018-02-03")
+    extractLocationStatis(LocationsFormat.Melbourne.toString, "086038", "2018-06-07", "2018-09-13")
+    extractLocationStatis(LocationsFormat.Adelaide.toString, "023000", "2018-11-02", "2018-12-13")
 
   }
 }

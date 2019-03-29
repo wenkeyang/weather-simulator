@@ -29,10 +29,11 @@ object SparkUtiles extends LoggingSupport {
     log.info(s"Writing CSV files at $filePath with saveMode=$saveMode")
     try {
       dataset
+        .repartition(1)
         .write
-        .option("header", "true")
         .option("delimiter", "|")
         .option("emptyValue", "")
+        .option("quote", "")
         .mode(saveMode)
         .csv(filePath)
       filePath

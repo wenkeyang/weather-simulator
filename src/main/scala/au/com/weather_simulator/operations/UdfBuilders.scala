@@ -1,7 +1,11 @@
 package au.com.weather_simulator.operations
 
-import java.util.Random
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.util.{Calendar, Random, TimeZone}
+
 import au.com.weather_simulator.utiles.LoggingSupport
+import au.com.weather_simulator.utiles.TimezoneUtiles._
 
 object UdfBuilders extends LoggingSupport {
 
@@ -26,17 +30,20 @@ object UdfBuilders extends LoggingSupport {
   }
 
   //generate Pressure range from 800-1100
-  val generateRandomPressure: String = {
+  val generateRandomPressure: () => String = () => {
     "%.1f".format(800 + 300 * new Random().nextDouble())
   }
 
   //generate humidity in percentage
-  val generateRandomHumidity: Int = {
-    new Random().nextInt(100) + 1
+  val generateRandomHumidity: () => String = () => {
+    (new Random().nextInt(100) + 1).toString
   }
 
-  val generateTimeStamp: (String) => String = (datetime: String) => {
-    datetime + " " + randomInt(12) + ":" + randomInt(60) + ":" + randomInt(60)
+  val generateTimeStamp: (String, String) => String = (datetime: String, location: String) => {
+    val whole_date = datetime + " " + randomInt(12) + ":" + randomInt(60) + ":" + randomInt(60)
+    val formatFile = new SimpleDateFormat(standardPattern)
+    formatFile.setTimeZone(TimeZone.getTimeZone(timeZone(location)))
+    formatFile.format(new SimpleDateFormat(randomTimePattern).parse(whole_date))
   }
 
   private def randomInt(bound: Int): String = {
@@ -44,7 +51,7 @@ object UdfBuilders extends LoggingSupport {
   }
 
   def main(args: Array[String]): Unit = {
-    val x = generateTimeStamp("2018-01-01")
+    val x = generateTimeStamp("2018-01-01", "Sydney")
     println(x)
   }
 }
