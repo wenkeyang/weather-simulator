@@ -8,7 +8,8 @@ import au.com.weather_simulator.typing.BomCalendar
 
 object TimezoneUtiles extends LoggingSupport {
 
-  val standardPattern = "yyyy-MM-dd HH:mm:ss"
+  val standardPattern = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+
   val timeZone_Sydney = "Australia/Sydney"
   val timeZone_Melbourne = "Australia/Melbourne"
   val timeZone_Adelaide = "Australia/Adelaide"
@@ -25,15 +26,15 @@ object TimezoneUtiles extends LoggingSupport {
     val mlist = for (a <- 0 until (start.until(end, ChronoUnit.DAYS) + 1).toInt)
       yield {
         val temp = start.plusDays(a).toString
-        BomCalendar(temp.split("-")(1), temp.split("-")(2))
+        BomCalendar(temp, temp.split("-")(1), temp.split("-")(2))
       }
     mlist.toList
   }
 
   def main(args: Array[String]): Unit = {
-    for (elem <- generateBOMcalendar("2018-01-01", "2018-12-31")) {
-      print(elem)
-    }
 
+    val x = generateBOMcalendar("2018-01-02", "2018-03-01")
+
+    x.foreach(println)
   }
 }

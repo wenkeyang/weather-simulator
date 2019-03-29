@@ -1,3 +1,3 @@
 package au.com.weather_simulator.typing
 
-case class BomCalendar(cmonth: String, cday: String)
+case class BomCalendar(timestamp: String, cmonth: String, cday: String)

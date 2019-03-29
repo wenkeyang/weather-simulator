@@ -11,28 +11,25 @@ object Runtest {
   def main(args: Array[String]): Unit = {
     println("Hello world")
 
-      val fileFormat: ConditionsFormat.Value =ConditionsFormat.Rain
-    println(fileFormat)
+
+    implicit val spark = getSparkSession("localTest")
+
+    spark.udf.register("rand_temp", generateRandomTemp)
+
+    val sydney = SparkUtiles.readCSV("src/main/resources/sydney.csv")
+    sydney.printSchema()
+    sydney.createOrReplaceTempView("sydney")
 
 
-//    implicit val spark = getSparkSession("localTest")
-//
-//    spark.udf.register("rand_temp", generateRandomTemp)
-//
-//    val sydney = SparkUtiles.readCSV("src/main/resources/sydney.csv")
-//    sydney.printSchema()
-//    sydney.createOrReplaceTempView("sydney")
-//
-//
-//    spark.sql(
-//      """
-//        |select monthday, maxtemp, mintemp ,
-//        | cast(rand_temp(mintemp,maxtemp) as DECIMAL(8,1)) as emutemp
-//        | from sydney
-//      """.stripMargin).show
-//
-//
-//    spark.close()
+    spark.sql(
+      """
+        |select monthday, maxtemp, mintemp ,
+        |rand_temp(mintemp,maxtemp) as emutemp
+        | from sydney
+      """.stripMargin).show
+
+
+    spark.close()
 
 
 

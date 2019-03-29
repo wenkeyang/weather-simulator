@@ -1,19 +1,20 @@
 package au.com.weather_simulator.utiles
 
 import java.io._
+
 import scala.util.Try
 import scala.sys.process._
-import au.com.weather_simulator.typing.WeatherAverageStatis
+import au.com.weather_simulator.typing.{BomCalendar, WeatherAverageStatis}
 import au.com.weather_simulator.utiles.TimezoneUtiles.generateBOMcalendar
 
 object BomUtiles extends LoggingSupport {
 
-  def getweatherAverage(site_id: String, mmonth: String, mday: String): WeatherAverageStatis = {
-    log.debug(s"Extracing statis for stn_num=${site_id}&month=${mmonth}&day=${mday}")
-    val baseURL = s"http://www.bom.gov.au/jsp/ncc/cdio/calendar/climate-calendar?stn_num=${site_id}&month=${mmonth}&day=${mday}"
+  def getweatherAverage(site_id: String, bomcalendar: BomCalendar): WeatherAverageStatis = {
+    log.debug(s"Extracing statis for stn_num=${site_id}&month=${bomcalendar.cmonth}&day=${bomcalendar.cday}")
+    val baseURL = s"http://www.bom.gov.au/jsp/ncc/cdio/calendar/climate-calendar?stn_num=${site_id}&month=${bomcalendar.cmonth}&day=${bomcalendar.cday}"
     val data = "curl " + baseURL !!
     val cleaned = weatherAverageWash(data)
-    WeatherAverageStatis(s"$mmonth-$mday", cleaned._1, cleaned._2, cleaned._3)
+    WeatherAverageStatis(s"${bomcalendar.timestamp}", cleaned._1, cleaned._2, cleaned._3)
   }
 
   private def weatherAverageWash(data: String): (Double, Double, Double) = {
@@ -53,7 +54,7 @@ object BomUtiles extends LoggingSupport {
 
   def extractLocationStatis(filename: String, site_code: String, start_date: String = "2018-01-01", end_date: String = "2018-12-31") = {
     val finaldataset = for (elem <- generateBOMcalendar(start_date, end_date)) yield
-      getweatherAverage(site_code, elem.cmonth, elem.cday)
+      getweatherAverage(site_code, elem)
 
     val filewriter = new BufferedWriter(new FileWriter("src\\main\\resources\\" + filename + ".csv"))
     filewriter.write("monthday|maxtemp|mintemp|rainfall\n")

@@ -35,8 +35,16 @@ object UdfBuilders extends LoggingSupport {
     new Random().nextInt(100) + 1
   }
 
+  val generateTimeStamp: (String) => String = (datetime: String) => {
+    datetime + " " + randomInt(12) + ":" + randomInt(60) + ":" + randomInt(60)
+  }
+
+  private def randomInt(bound: Int): String = {
+    (new Random().nextInt(bound) + 1).toString
+  }
+
   def main(args: Array[String]): Unit = {
-    val x = generateRandomHumidity
+    val x = generateTimeStamp("2018-01-01")
     println(x)
   }
 }
