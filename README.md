@@ -2,7 +2,7 @@
 Toy weather simulation will generate fake weather data based on the real statistical weather data from Bureau of Meteorology website.
 http://www.bom.gov.au/climate/data/
 
-## Travis build status
+## Travis ci build status
 [![Build Status](https://travis-ci.org/wenkeyang/weather-simulator.svg?branch=master)](https://travis-ci.org/wenkeyang/weather-simulator)
 
 ## Observation Points  
