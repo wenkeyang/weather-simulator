@@ -14,8 +14,7 @@ object SparkUtiles extends LoggingSupport {
 
     log.info("Reading files from " + filePath)
     try {
-      sparksession
-        .read
+      sparksession.read
         .option("header", "true")
         .option("delimiter", "|")
         .option("maxCharsPerColumn", "50000000")
@@ -38,7 +37,8 @@ object SparkUtiles extends LoggingSupport {
         .csv(filePath)
       filePath
     } catch {
-      case e: Exception => throw SparkWriteException(s"Error while writing CSV $filePath with saveMode=$saveMode => ${e.getMessage}", e)
+      case e: Exception =>
+        throw SparkWriteException(s"Error while writing CSV $filePath with saveMode=$saveMode => ${e.getMessage}", e)
     }
   }
 

@@ -24,8 +24,8 @@ object Run {
     bomstatis.createOrReplaceTempView("bomstatis")
 
     //generate emulated data output
-    val emulated = spark.sql(
-      """
+    val emulated =
+      spark.sql("""
         |with outtab as (
         | select
         |        get_station(location) as station,
@@ -49,8 +49,7 @@ object Run {
 
     //generate verify data output
     emulated.createOrReplaceTempView("emulated")
-    val verify = spark.sql(
-      """
+    val verify = spark.sql("""
         |select
         |     bs.location,
         |     bs.monthday,

@@ -22,10 +22,11 @@ object UdfBuilders extends LoggingSupport {
       "%.1f".format(tempNumber)
   })
 
-  val generateCondition = udf((temp: Double, humidity: Int) => (temp, humidity) match {
-    case (temp, humidity) if (temp < 8 && humidity > 45 && humidity < 60) => ConditionsFormat.Snow.toString
-    case (temp, humidity) if (humidity > 88) => ConditionsFormat.Rain.toString
-    case _ => ConditionsFormat.Sunny.toString
+  val generateCondition = udf((temp: Double, humidity: Int) =>
+    (temp, humidity) match {
+      case (temp, humidity) if (temp < 8 && humidity > 45 && humidity < 60) => ConditionsFormat.Snow.toString
+      case (temp, humidity) if (humidity > 88)                              => ConditionsFormat.Rain.toString
+      case _                                                                => ConditionsFormat.Sunny.toString
   })
 
   //generate Pressure range from 800-1100

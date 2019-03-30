@@ -12,7 +12,8 @@ object BomUtiles extends LoggingSupport {
 
   private[utiles] def getweatherAverage(site_id: String, bomcalendar: BomCalendar): WeatherAverageStatis = {
     log.debug(s"Extracing statis for stn_num=${site_id}&month=${bomcalendar.cmonth}&day=${bomcalendar.cday}")
-    val baseURL = s"http://www.bom.gov.au/jsp/ncc/cdio/calendar/climate-calendar?stn_num=${site_id}&month=${bomcalendar.cmonth}&day=${bomcalendar.cday}"
+    val baseURL =
+      s"http://www.bom.gov.au/jsp/ncc/cdio/calendar/climate-calendar?stn_num=${site_id}&month=${bomcalendar.cmonth}&day=${bomcalendar.cday}"
     //    val data = "curl " + baseURL !!
 
     Thread.sleep(1000)
@@ -32,7 +33,8 @@ object BomUtiles extends LoggingSupport {
     Try {
       val point1 = data.indexOf("""<table class="table-basic" id="typical1" summary="">""")
       val point2 = data.indexOf("""</table>""", point1) + "</table>".length
-      val subst = data.substring(point1, point2)
+      val subst = data
+        .substring(point1, point2)
         .replaceAll("<span> &deg;C</span>", "")
         .replaceAll("<span> mm</span>", "")
       val xmlcon = scala.xml.XML.loadString(subst)
@@ -69,13 +71,16 @@ object BomUtiles extends LoggingSupport {
     content
   }
 
-  def extractLocationStatis(filename: String, site_code: String, start_date: String = "2018-01-01", end_date: String = "2018-12-31") = {
-    val finaldataset = for (elem <- generateBOMcalendar(start_date, end_date)) yield
-      getweatherAverage(site_code, elem)
+  def extractLocationStatis(filename: String,
+                            site_code: String,
+                            start_date: String = "2018-01-01",
+                            end_date: String = "2018-12-31") = {
+    val finaldataset = for (elem <- generateBOMcalendar(start_date, end_date)) yield getweatherAverage(site_code, elem)
 
     val filewriter = new BufferedWriter(new FileWriter("src\\main\\resources\\bomstatis\\" + filename + ".csv"))
     filewriter.write("location|monthday|maxtemp|mintemp|rainfall\n")
-    finaldataset.foreach(row => filewriter.write(s"${filename}|${row.monthday}|${row.maxtemp}|${row.mintemp}|${row.rainfall}\n"))
+    finaldataset.foreach(row =>
+      filewriter.write(s"${filename}|${row.monthday}|${row.maxtemp}|${row.mintemp}|${row.rainfall}\n"))
     filewriter.close()
   }
 }

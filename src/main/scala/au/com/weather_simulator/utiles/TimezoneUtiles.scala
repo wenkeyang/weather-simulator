@@ -11,9 +11,8 @@ object TimezoneUtiles extends LoggingSupport {
   val standardPattern = "yyyy-MM-dd'T'HH:mm:ss'Z'"
   val randomTimePattern = "yyyy-MM-dd HH:mm:ss"
 
-  val timeZone = Map("Sydney" -> "Australia/Sydney",
-    "Melbourne" -> "Australia/Melbourne",
-    "Adelaide" -> "Australia/Adelaide")
+  val timeZone =
+    Map("Sydney" -> "Australia/Sydney", "Melbourne" -> "Australia/Melbourne", "Adelaide" -> "Australia/Adelaide")
 
   def generateTimeZoneTime(timezone: String): String = {
     val formatFile = new SimpleDateFormat(standardPattern)
