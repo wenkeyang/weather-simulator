@@ -2,6 +2,8 @@
 Toy weather simulation will generate fake weather data based on the real statistical weather data from Bureau of Meteorology website.
 http://www.bom.gov.au/climate/data/
 
+
+## Observation Points
 Choose 3 observation points(1 for Sydney, 1 for Melbourne, 1 for Adelaide)
 
 http://www.bom.gov.au/jsp/ncc/cdio/calendar/climate-calendar?stn_num=066062&month=03&day=30
@@ -64,6 +66,9 @@ http://www.bom.gov.au/jsp/ncc/cdio/calendar/climate-calendar?stn_num=023000&mont
   </tr>
 </table>
 
+
+## Simulator Design, Logic And Sample Data
+
 ```
 Ps. Not encourage for using UDFs in real work unless there is no other options.
     To make emulation weather design clear and consist, therefore, adopt UDFs. 
@@ -110,6 +115,8 @@ Conditions
 ```
 
 
+## Visualized Output Data
+
 Sample emulate date range from 2018-01-01 to 2018-12-31 for Sydney, Melbourne, Adelaide.
 We can see the overall temperature(gray line) drops between real statistical max(blue line) and min temperature(orange line).
 
@@ -123,7 +130,14 @@ Adelaide:
 ![picture](src/main/resources/images/adelaideverify.jpg)
 
 
+## Project structure 
 
+Enter point: ```au.com.weather_simulator.Run```
+
+Bom statistical data from website:```"src/main/resources/bomstatis/"```
+
+
+## Appendix
 
 Ps. rain fall is not part of this simulation. Following Rain fall trend drawn from bom history statistic of whole year.
 ![picture](src/main/resources/images/sydneyRainfallTrend.jpg)
