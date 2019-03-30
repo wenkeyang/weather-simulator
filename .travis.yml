@@ -6,7 +6,7 @@ before_install: umask 0022
 scala:
 - 2.12.8
 script:
-- "echo no op"
+- "sbt assembly"
 
 matrix:
   include:
