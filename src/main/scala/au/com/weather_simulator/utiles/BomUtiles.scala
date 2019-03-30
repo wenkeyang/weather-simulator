@@ -50,10 +50,10 @@ object BomUtiles extends LoggingSupport {
 
   @throws(classOf[java.io.IOException])
   @throws(classOf[java.net.SocketTimeoutException])
-  def getDatafromHttp(url: String,
-                      connectTimeout: Int = 5000,
-                      readTimeout: Int = 5000,
-                      requestMethod: String = "GET") = {
+  private[utiles] def getDatafromHttp(url: String,
+                                      connectTimeout: Int = 5000,
+                                      readTimeout: Int = 5000,
+                                      requestMethod: String = "GET") = {
     import java.net.{HttpURLConnection, URL}
     val connection = (new URL(url)).openConnection.asInstanceOf[HttpURLConnection]
     connection.setConnectTimeout(connectTimeout)
