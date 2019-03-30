@@ -4,8 +4,14 @@ Toy wealther simulation will genearte fake data based on study of the real weath
 清晰地模拟天气并输出天气标准格式的数据
 Stockholm airport gets a weather simulator
 
+Ps. Not encourage for using UDFs in real work unless there is no other options.
+To make emulation weather design clear and consist, therefore, adopt UDFs. 
+ 
 Toy wealther simulation will genearte report data based on study of the real weather data based on input from API.
 
+<font color="blue">This is some text!</font>
+<font color="orange">This is some text!</font>
+<font color="gray">This is some text!</font>
 
 http://history.openweathermap.org/data/2.5/history/city?id=2147714&type=hour&start=1369728000&end=1369789200
 
@@ -36,7 +42,7 @@ http://www.bom.gov.au/climate/data/
   </tr>
 </table>
 
-![picture](src/main/resources/images/sydneyTempTrend.jpg)
+![picture](src/main/resources/images/sydneyverify.jpg)
 ![picture](src/main/resources/images/sydneyRainfallTrend.jpg)
 
 <table class="tg">
@@ -58,7 +64,7 @@ http://www.bom.gov.au/climate/data/
   </tr>
 </table>
 
-![picture](src/main/resources/images/melbourneTempTrend.jpg)
+![picture](src/main/resources/images/melbourneverify.jpg)
 ![picture](src/main/resources/images/melbourneRainfallTrend.jpg)
 
 <table class="tg">
@@ -80,6 +86,6 @@ http://www.bom.gov.au/climate/data/
   </tr>
 </table>
 
-![picture](src/main/resources/images/adelaideTempTrend.jpg)
+![picture](src/main/resources/images/adelaideverify.jpg)
 ![picture](src/main/resources/images/adelaideRainfallTrend.jpg)
 

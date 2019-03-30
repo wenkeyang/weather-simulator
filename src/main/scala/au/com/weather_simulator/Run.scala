@@ -4,24 +4,19 @@ import au.com.weather_simulator.utiles.SparkUtiles._
 import au.com.weather_simulator.operations.UdfBuilders._
 import au.com.weather_simulator.operations.LocationsFormat
 import au.com.weather_simulator.utiles.BomUtiles.extractLocationStatis
+import org.apache.spark.sql.SparkSession
 
 object Run {
   def main(args: Array[String]): Unit = {
 
     //extract real statis from bom website
-    /*    extractLocationStatis(LocationsFormat.Sydney.toString, "066062", "2018-01-01", "2018-02-03")
-        extractLocationStatis(LocationsFormat.Melbourne.toString, "086038", "2018-06-07", "2018-09-13")
-        extractLocationStatis(LocationsFormat.Adelaide.toString, "023000", "2018-11-02", "2018-12-13")*/
+    extractLocationStatis(LocationsFormat.Sydney.toString, "066062", "2018-01-01", "2018-12-31")
+    extractLocationStatis(LocationsFormat.Melbourne.toString, "086038", "2018-01-01", "2018-12-31")
+    extractLocationStatis(LocationsFormat.Adelaide.toString, "023000", "2018-01-01", "2018-12-31")
 
     implicit val spark = getSparkSession("weather-simulator")
 
-    //register UDFs
-    spark.udf.register("get_temp", generateRandomTemp)
-    spark.udf.register("get_station", generateStation)
-    spark.udf.register("get_condition", generateCondition)
-    spark.udf.register("get_pressure", generateRandomPressure)
-    spark.udf.register("get_humidity", generateRandomHumidity)
-    spark.udf.register("get_timeStamp", generateTimeStamp)
+    regisUDFs()
 
     //loading real statis
     val bomstatis = readCSV("src/main/resources/bomstatis/")
@@ -52,9 +47,33 @@ object Run {
     emulated.show(20, false)
     writeCSV(emulated, "src/main/resources/emulatedData")
 
-    val reload = readCSV("src/main/resources/emulatedData")
-    reload.createOrReplaceTempView("emulated")
+    //generate verify data output
+    emulated.createOrReplaceTempView("emulated")
+    val verify = spark.sql(
+      """
+        |select
+        |     bs.location,
+        |     bs.monthday,
+        |     bs.maxtemp,
+        |     bs.mintemp,
+        |     replace(em.Temprature,'+','') as tempra
+        |from bomstatis as bs join emulated as em
+        |on to_date(bs.monthday) = to_date(em.local_time)
+        |and bs.location = em.Location
+      """.stripMargin)
+    verify.show(20, false)
+    writeCSV(verify, "src/main/resources/verify")
 
     spark.close()
+  }
+
+  //register UDFs
+  def regisUDFs()(implicit spark: SparkSession): Unit = {
+    spark.udf.register("get_temp", generateRandomTemp)
+    spark.udf.register("get_station", generateStation)
+    spark.udf.register("get_condition", generateCondition)
+    spark.udf.register("get_pressure", generateRandomPressure)
+    spark.udf.register("get_humidity", generateRandomHumidity)
+    spark.udf.register("get_timeStamp", generateTimeStamp)
   }
 }
