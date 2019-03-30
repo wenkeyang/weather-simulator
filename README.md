@@ -3,7 +3,8 @@ Toy weather simulation will generate fake weather data based on the real statist
 http://www.bom.gov.au/climate/data/
 
 
-## Observation Points
+## Observation Points  [![Build Status](https://travis-ci.org/wenkeyang/weather-simulator.svg?branch=master)](https://travis-ci.org/wenkeyang/weather-simulator)
+
 Choose 3 observation points(1 for Sydney, 1 for Melbourne, 1 for Adelaide)
 
 http://www.bom.gov.au/jsp/ncc/cdio/calendar/climate-calendar?stn_num=066062&month=03&day=30
