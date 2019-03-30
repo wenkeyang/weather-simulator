@@ -1,6 +1,7 @@
 package au.com.weather_simulator.utiles
 
 import java.io._
+import java.nio.charset.{Charset, CodingErrorAction}
 
 import scala.util.Try
 import scala.sys.process._
@@ -12,7 +13,11 @@ object BomUtiles extends LoggingSupport {
   private[utiles] def getweatherAverage(site_id: String, bomcalendar: BomCalendar): WeatherAverageStatis = {
     log.debug(s"Extracing statis for stn_num=${site_id}&month=${bomcalendar.cmonth}&day=${bomcalendar.cday}")
     val baseURL = s"http://www.bom.gov.au/jsp/ncc/cdio/calendar/climate-calendar?stn_num=${site_id}&month=${bomcalendar.cmonth}&day=${bomcalendar.cday}"
-    val data = "curl " + baseURL !!
+    //    val data = "curl " + baseURL !!
+
+    Thread.sleep(1000)
+    println("Processing : " + baseURL)
+    val data = getDatafromHttp(baseURL)
 
     val wasoutput = data match {
       case NotEmptyString(data) =>
@@ -45,17 +50,21 @@ object BomUtiles extends LoggingSupport {
 
   @throws(classOf[java.io.IOException])
   @throws(classOf[java.net.SocketTimeoutException])
-  private[utiles] def getDatafromHttp(url: String,
-                                      connectTimeout: Int = 5000,
-                                      readTimeout: Int = 5000,
-                                      requestMethod: String = "GET") = {
+  def getDatafromHttp(url: String,
+                      connectTimeout: Int = 5000,
+                      readTimeout: Int = 5000,
+                      requestMethod: String = "GET") = {
     import java.net.{HttpURLConnection, URL}
     val connection = (new URL(url)).openConnection.asInstanceOf[HttpURLConnection]
     connection.setConnectTimeout(connectTimeout)
     connection.setReadTimeout(readTimeout)
     connection.setRequestMethod(requestMethod)
     val inputStream = connection.getInputStream
-    val content = scala.io.Source.fromInputStream(inputStream).mkString
+
+    val decoder = Charset.forName("UTF-8").newDecoder()
+    decoder.onMalformedInput(CodingErrorAction.IGNORE)
+
+    val content = scala.io.Source.fromInputStream(inputStream)(decoder).mkString
     if (inputStream != null) inputStream.close
     content
   }
