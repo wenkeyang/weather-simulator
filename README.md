@@ -88,11 +88,14 @@ Emulated data output under path: `"src/main/resources/emulatedData"`
 
 Output file Header & format: (Location, Position, Local Time, Conditions, Temperature, Pressure, Humidity):
 ```
+Adelaide|-34.93,138.58,29|2018-12-29T04:09:21Z|Rain|+20.2|914.1|62
+Adelaide|-34.93,138.58,29|2018-12-30T02:30:50Z|Sunny|+19.5|890.3|51
+Adelaide|-34.93,138.58,29|2018-12-31T05:57:45Z|Sunny|+27.7|1066.6|27
 Sydney|-33.86,151.2,39|2018-01-01T01:09:51Z|Sunny|+23.8|963.2|75
 Sydney|-33.86,151.2,39|2018-01-02T10:37:30Z|Sunny|+24.8|899.5|30
-Sydney|-33.86,151.2,39|2018-01-03T12:42:36Z|Sunny|+25.4|864.6|4
-Sydney|-33.86,151.2,39|2018-01-04T12:39:04Z|Sunny|+23.6|1036.3|68
-Sydney|-33.86,151.2,39|2018-01-05T06:46:52Z|Sunny|+25.2|901.1|84
+Melbourne|-37.73,144.91,78|2018-05-21T06:11:55Z|Sunny|+8.9|934.5|55
+Melbourne|-37.73,144.91,78|2018-05-22T05:28:05Z|Snow|+11.1|894.1|9
+Melbourne|-37.73,144.91,78|2018-05-23T08:39:32Z|Sunny|+9.1|1049.6|84
 ```
 
 Emulate logic for rest fields -> Local Time, Conditions, Pressure, Humidity
