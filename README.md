@@ -1,8 +1,8 @@
 # weather-simulator
-Toy wealther simulation will genearte fake weather data based on the real weather data from Bureau of Meteorlogy website.
+Toy weather simulation will generate fake weather data based on the real statistical weather data from Bureau of Meteorology website.
 http://www.bom.gov.au/climate/data/
 
-Choose 3 obeservation points(1 for Sydney, 1 for Melbourne, 1 for Adelaide)
+Choose 3 observation points(1 for Sydney, 1 for Melbourne, 1 for Adelaide)
 
 http://www.bom.gov.au/jsp/ncc/cdio/calendar/climate-calendar?stn_num=066062&month=03&day=30
  <table class="tg">
@@ -68,14 +68,14 @@ http://www.bom.gov.au/jsp/ncc/cdio/calendar/climate-calendar?stn_num=023000&mont
 Ps. Not encourage for using UDFs in real work unless there is no other options.
     To make emulation weather design clear and consist, therefore, adopt UDFs. 
 ```
-Bom(Bureau of Meteorlogy) website has the daily max, min temprature statis from history observation data.
-Therfore, the emulated day temperature must be in that range.
+Bom(Bureau of Meteorology) website has the daily max, min temperature statis from history observation data.
+Therefore, the emulated day temperature must be in that range.
 
 ```
 Weather-sumulator workflow: 
- 1. Extract the statis daily data by looping emulate date range
- 2. Using Spark SQL + UDFs to generate the emulated data for the same observation location.
- 3. Genearate verify output by listing statis daily maxm min temperature and emulated temperature in same row.
+ 1. Extract the weather statistics daily data within range of the emulate date
+ 2. Using Spark SQL + UDFs to generate the emulated data for the same day from specific observation locations.
+ 3. Genearate verification output by list statistic daily maximum, mininum temperature and emulated temperature in same row.
  4. Virtulize the output using excel
 ```
 
