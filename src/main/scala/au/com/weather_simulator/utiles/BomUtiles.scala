@@ -4,9 +4,8 @@ import java.io._
 
 import scala.util.Try
 import scala.sys.process._
-
-import au.com.weather_simulator.typing.{BomCalendar, WeatherAverageStatis}
 import au.com.weather_simulator.utiles.TimezoneUtiles.generateBOMcalendar
+import au.com.weather_simulator.typing.{BomCalendar, NotEmptyString, WeatherAverageStatis}
 
 object BomUtiles extends LoggingSupport {
 
@@ -14,22 +13,30 @@ object BomUtiles extends LoggingSupport {
     log.debug(s"Extracing statis for stn_num=${site_id}&month=${bomcalendar.cmonth}&day=${bomcalendar.cday}")
     val baseURL = s"http://www.bom.gov.au/jsp/ncc/cdio/calendar/climate-calendar?stn_num=${site_id}&month=${bomcalendar.cmonth}&day=${bomcalendar.cday}"
     val data = "curl " + baseURL !!
-    val cleaned = weatherAverageWash(data)
-    WeatherAverageStatis(s"${bomcalendar.timestamp}", cleaned._1, cleaned._2, cleaned._3)
+
+    val wasoutput = data match {
+      case NotEmptyString(data) =>
+        val cleaned = weatherAverageWash(data)
+        Some(WeatherAverageStatis(s"${bomcalendar.timestamp}", cleaned._1, cleaned._2, cleaned._3))
+      case _ => None
+    }
+    wasoutput.getOrElse(WeatherAverageStatis("", 0, 0, 0))
   }
 
   private[utiles] def weatherAverageWash(data: String): (Double, Double, Double) = {
-    val point1 = data.indexOf("""<table class="table-basic" id="typical1" summary="">""")
-    val point2 = data.indexOf("""</table>""", point1) + "</table>".length
-    val subst = data.substring(point1, point2)
-      .replaceAll("<span> &deg;C</span>", "")
-      .replaceAll("<span> mm</span>", "")
-    val xmlcon = scala.xml.XML.loadString(subst)
-    val td = xmlcon \ "tbody" \ "tr" \ "td"
-    val textList = for (elem <- td.theSeq.toIterator)
-      yield elem.text.replaceAll("\n", "").replaceAll(" +", " ")
-    val temp = textList.toList
-    (getDoublevalue(temp(1)), getDoublevalue(temp(3)), getDoublevalue(temp(5)))
+    Try {
+      val point1 = data.indexOf("""<table class="table-basic" id="typical1" summary="">""")
+      val point2 = data.indexOf("""</table>""", point1) + "</table>".length
+      val subst = data.substring(point1, point2)
+        .replaceAll("<span> &deg;C</span>", "")
+        .replaceAll("<span> mm</span>", "")
+      val xmlcon = scala.xml.XML.loadString(subst)
+      val td = xmlcon \ "tbody" \ "tr" \ "td"
+      val textList = for (elem <- td.theSeq.toIterator)
+        yield elem.text.replaceAll("\n", "").replaceAll(" +", " ")
+      val temp = textList.toList
+      (getDoublevalue(temp(1)), getDoublevalue(temp(3)), getDoublevalue(temp(5)))
+    }.getOrElse((0, 0, 0))
   }
 
   private[utiles] def getDoublevalue(value: String): Double = {
