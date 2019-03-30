@@ -9,9 +9,12 @@ To make emulation weather design clear and consist, therefore, adopt UDFs.
  
 Toy wealther simulation will genearte report data based on study of the real weather data based on input from API.
 
+```html
 <font color="blue">This is some text!</font>
 <font color="orange">This is some text!</font>
 <font color="gray">This is some text!</font>
+```
+
 
 http://history.openweathermap.org/data/2.5/history/city?id=2147714&type=hour&start=1369728000&end=1369789200
 
@@ -22,7 +25,7 @@ https://samples.openweathermap.org/data/2.5/history/city?id=2147714&type=hour&ap
 http://www.bom.gov.au/jsp/ncc/cdio/weatherData/av?p_display_type=monthlyZippedDataFile&p_stn_num=066062&p_c=-872833409&p_nccObsCode=36&p_startYear=
 
 http://www.bom.gov.au/climate/data/
-
+```html
 <table class="tg">
   <tr>
     <th class="tg-yw4l"><b>Site Name:</b></th>
@@ -41,10 +44,13 @@ http://www.bom.gov.au/climate/data/
     <th class="tg-yw4l">39</th>
   </tr>
 </table>
+```
 
 ![picture](src/main/resources/images/sydneyverify.jpg)
 ![picture](src/main/resources/images/sydneyRainfallTrend.jpg)
 
+
+```html
 <table class="tg">
   <tr>
     <th class="tg-yw4l"><b>Site Name:</b></th>
@@ -63,10 +69,12 @@ http://www.bom.gov.au/climate/data/
     <th class="tg-yw4l">78</th>
   </tr>
 </table>
+```
 
 ![picture](src/main/resources/images/melbourneverify.jpg)
 ![picture](src/main/resources/images/melbourneRainfallTrend.jpg)
 
+```html
 <table class="tg">
   <tr>
     <th class="tg-yw4l"><b>Site Name:</b></th>
@@ -85,6 +93,7 @@ http://www.bom.gov.au/climate/data/
     <th class="tg-yw4l">29</th>
   </tr>
 </table>
+```
 
 ![picture](src/main/resources/images/adelaideverify.jpg)
 ![picture](src/main/resources/images/adelaideRainfallTrend.jpg)
