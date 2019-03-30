@@ -132,10 +132,17 @@ Adelaide:
 
 ## Project structure 
 
-Enter point: ```au.com.weather_simulator.Run```
+Enter main class: `au.com.weather_simulator.Run`
 
-Bom statistical data from website:```"src/main/resources/bomstatis/"```
+Bom statistical data from website: `"src/main/resources/bomstatis/"`
 
+Emulated data output path: `"src/main/resources/emulatedData"`
+
+Verification data output path: `"src/main/resources/verify"`
+
+Testing input data path: `"src/test/resources/readCSVInput1"`
+
+Testing output data path: `"src/test/resources/writeCSVOutput"`
 
 ## Appendix
 
@@ -145,5 +152,8 @@ Ps. rain fall is not part of this simulation. Following Rain fall trend drawn fr
 ![picture](src/main/resources/images/adelaideRainfallTrend.jpg)
 
 
+## License
+
+The MIT License (MIT) - see [`LICENSE.md`](https://github.com/fatih/color/blob/master/LICENSE.md) for more details
 
  
