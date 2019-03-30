@@ -8,12 +8,14 @@ import au.com.weather_simulator.utiles.BomUtiles.extractLocationStatis
 object Run {
   def main(args: Array[String]): Unit = {
 
-    extractLocationStatis(LocationsFormat.Sydney.toString, "066062", "2018-01-01", "2018-02-03")
-    extractLocationStatis(LocationsFormat.Melbourne.toString, "086038", "2018-06-07", "2018-09-13")
-    extractLocationStatis(LocationsFormat.Adelaide.toString, "023000", "2018-11-02", "2018-12-13")
+    //extract real statis from bom website
+    /*    extractLocationStatis(LocationsFormat.Sydney.toString, "066062", "2018-01-01", "2018-02-03")
+        extractLocationStatis(LocationsFormat.Melbourne.toString, "086038", "2018-06-07", "2018-09-13")
+        extractLocationStatis(LocationsFormat.Adelaide.toString, "023000", "2018-11-02", "2018-12-13")*/
 
     implicit val spark = getSparkSession("weather-simulator")
 
+    //register UDFs
     spark.udf.register("get_temp", generateRandomTemp)
     spark.udf.register("get_station", generateStation)
     spark.udf.register("get_condition", generateCondition)
@@ -21,12 +23,13 @@ object Run {
     spark.udf.register("get_humidity", generateRandomHumidity)
     spark.udf.register("get_timeStamp", generateTimeStamp)
 
+    //loading real statis
+    val bomstatis = readCSV("src/main/resources/bomstatis/")
+    bomstatis.printSchema()
+    bomstatis.createOrReplaceTempView("bomstatis")
 
-    val sydney = readCSV("src/main/resources/bomstatis/")
-    sydney.printSchema()
-    sydney.createOrReplaceTempView("bomstatis")
-
-    val set2 = spark.sql(
+    //generate emulated data output
+    val emulated = spark.sql(
       """
         |with outtab as (
         | select
@@ -46,10 +49,11 @@ object Run {
         |       humidy as Humidity
         |from outtab
       """.stripMargin)
+    emulated.show(20, false)
+    writeCSV(emulated, "src/main/resources/emulatedData")
 
-    set2.show(20, false)
-
-    writeCSV(set2, "src\\main\\resources\\output")
+    val reload = readCSV("src/main/resources/emulatedData")
+    reload.createOrReplaceTempView("emulated")
 
     spark.close()
   }
