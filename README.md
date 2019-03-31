@@ -146,9 +146,13 @@ Emulated data output path: `"src/main/resources/emulatedData"`
 
 Verification data output path: `"src/main/resources/verify"`
 
+Log output path: `"src/main/resources/log/log.out"`
+
 Testing input data path: `"src/test/resources/readCSVInput1"`
 
 Testing output data path: `"src/test/resources/writeCSVOutput"`
+
+Testing Log output path: `"src/test/resources/log/log.out"`
 
 ## Appendix
 

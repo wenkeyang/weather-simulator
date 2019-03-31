@@ -11,13 +11,13 @@ import au.com.weather_simulator.typing.{BomCalendar, NotEmptyString, WeatherAver
 object BomUtiles extends LoggingSupport {
 
   private[utiles] def getweatherAverage(site_id: String, bomcalendar: BomCalendar): WeatherAverageStatis = {
-    log.debug(s"Extracing statis for stn_num=${site_id}&month=${bomcalendar.cmonth}&day=${bomcalendar.cday}")
+    log.info(s"Extracing statis for stn_num=${site_id}&month=${bomcalendar.cmonth}&day=${bomcalendar.cday}")
     val baseURL =
       s"http://www.bom.gov.au/jsp/ncc/cdio/calendar/climate-calendar?stn_num=${site_id}&month=${bomcalendar.cmonth}&day=${bomcalendar.cday}"
     //    val data = "curl " + baseURL !!
 
     Thread.sleep(1000)
-    println("Processing : " + baseURL)
+    log.info("Processing : " + baseURL)
     val data = getDatafromHttp(baseURL)
 
     val wasoutput = data match {
@@ -75,6 +75,7 @@ object BomUtiles extends LoggingSupport {
                             site_code: String,
                             start_date: String = "2018-01-01",
                             end_date: String = "2018-12-31") = {
+    log.info(s"statis filename:$filename, site_code:$site_code, start_date:$start_date, end_date:$end_date")
     val finaldataset = for (elem <- generateBOMcalendar(start_date, end_date)) yield getweatherAverage(site_code, elem)
 
     val filewriter = new BufferedWriter(new FileWriter("src\\main\\resources\\bomstatis\\" + filename + ".csv"))

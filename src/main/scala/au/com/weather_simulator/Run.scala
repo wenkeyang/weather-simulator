@@ -1,12 +1,13 @@
 package au.com.weather_simulator
 
-import au.com.weather_simulator.utiles.SparkUtiles._
-import au.com.weather_simulator.operations.UdfBuilders._
 import au.com.weather_simulator.operations.LocationsFormat
+import au.com.weather_simulator.operations.UdfBuilders._
 import au.com.weather_simulator.utiles.BomUtiles.extractLocationStatis
+import au.com.weather_simulator.utiles.LoggingSupport
+import au.com.weather_simulator.utiles.SparkUtiles._
 import org.apache.spark.sql.SparkSession
 
-object Run {
+object Run extends LoggingSupport {
   def main(args: Array[String]): Unit = {
 
     //extract real statis from bom website
@@ -25,7 +26,8 @@ object Run {
 
     //generate emulated data output
     val emulated =
-      spark.sql("""
+      spark.sql(
+        """
           |WITH outtab AS
           |(
           |       SELECT Get_station(location)            AS station,
@@ -48,12 +50,13 @@ object Run {
 
     //generate verify data output
     emulated.createOrReplaceTempView("emulated")
-    val verify = spark.sql("""
+    val verify = spark.sql(
+      """
         |SELECT bs.location,
         |       bs.monthday,
         |       bs.maxtemp,
         |       bs.mintemp,
-        |       Replace(em.temprature, '+', '') AS tempra
+        |       Replace(em.temperature, '+', '') AS tempra
         |FROM   bomstatis AS bs
         |       JOIN emulated AS em
         |         ON To_date(bs.monthday) = To_date(em.local_time)
