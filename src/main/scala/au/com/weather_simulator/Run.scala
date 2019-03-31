@@ -1,33 +1,35 @@
 package au.com.weather_simulator
 
-import au.com.weather_simulator.operations.LocationsFormat
 import au.com.weather_simulator.operations.UdfBuilders._
 import au.com.weather_simulator.utiles.BomUtiles.extractLocationStatis
-import au.com.weather_simulator.utiles.LoggingSupport
 import au.com.weather_simulator.utiles.SparkUtiles._
+import au.com.weather_simulator.utiles.{AppConfig, LoggingSupport}
 import org.apache.spark.sql.SparkSession
 
 object Run extends LoggingSupport {
   def main(args: Array[String]): Unit = {
 
-    //extract real statis from bom website
-    extractLocationStatis(LocationsFormat.Sydney.toString, "066062", "2018-01-01", "2018-12-31")
-    extractLocationStatis(LocationsFormat.Melbourne.toString, "086038", "2018-01-01", "2018-12-31")
-    extractLocationStatis(LocationsFormat.Adelaide.toString, "023000", "2018-01-01", "2018-12-31")
+    //load app config file
+    val appconfig = AppConfig.init("src/main/resources/appconfig.conf")
+    val systemconfig = appconfig.systemConfig()
 
-    implicit val spark = getSparkSession("weather-simulator")
+    //extract real statis from bom website
+    for (elem <- appconfig.extractBomSites()) {
+      extractLocationStatis(elem.site_name, elem.site_code, elem.start_date, elem.end_date)
+    }
+
+    implicit val spark = getSparkSession(systemconfig.sparkAppName)
 
     regisUDFs()
 
     //loading real statis
-    val bomstatis = readCSV("src/main/resources/bomstatis/")
+    val bomstatis = readCSV(systemconfig.bomStatisPath)
     bomstatis.printSchema()
     bomstatis.createOrReplaceTempView("bomstatis")
 
     //generate emulated data output
     val emulated =
-      spark.sql(
-        """
+      spark.sql("""
           |WITH outtab AS
           |(
           |       SELECT Get_station(location)            AS station,
@@ -46,12 +48,11 @@ object Run extends LoggingSupport {
           |FROM   outtab
         """.stripMargin)
     emulated.show(20, false)
-    writeCSV(emulated, "src/main/resources/emulatedData")
+    writeCSV(emulated, systemconfig.emulatedOutputPath)
 
     //generate verify data output
     emulated.createOrReplaceTempView("emulated")
-    val verify = spark.sql(
-      """
+    val verify = spark.sql("""
         |SELECT bs.location,
         |       bs.monthday,
         |       bs.maxtemp,
@@ -63,7 +64,7 @@ object Run extends LoggingSupport {
         |            AND bs.location = em.location
       """.stripMargin)
     verify.show(20, false)
-    writeCSV(verify, "src/main/resources/verify")
+    writeCSV(verify, systemconfig.verifyOutputPath)
 
     spark.close()
   }
