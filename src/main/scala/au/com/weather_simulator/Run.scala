@@ -27,6 +27,12 @@ object Run extends LoggingSupport {
     bomstatis.printSchema()
     bomstatis.createOrReplaceTempView("bomstatis")
 
+    /*
+    *FIXME: could implement jinjava based template SQL
+    *FIXME: and put SQL in separate sql folder
+    *FIXME: parameters for template SQL can separate into config file
+    */
+    
     //generate emulated data output
     val emulated =
       spark.sql("""
