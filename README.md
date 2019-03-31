@@ -70,7 +70,7 @@ http://www.bom.gov.au/jsp/ncc/cdio/calendar/climate-calendar?stn_num=023000&mont
 </table>
 
 
-## Simulator Design, Logic And Sample Data
+## Simulator Design, Logic And Sample Output Data
 
 ```
 Ps. Not encourage for using UDFs in real work unless there is no other options.
@@ -141,6 +141,37 @@ Adelaide:
 Enter main class: `au.com.weather_simulator.Run`
 
 Application configuration file path: `"src/main/resources/appconfig.conf"`
+
+Ps. define startDate and endDate to change the simulation time range.
+
+```
+run {
+  sparkAppName = "Weather-Simulator"
+  bomStatisPath = "src/main/resources/bomstatis/"
+  emulatedOutputPath = "src/main/resources/emulatedData"
+  verifyOutputPath = "src/main/resources/verify"
+  sources {
+    Sydney {
+      siteCode = "066062"
+      startDate = "2018-01-01"
+      endDate = "2018-12-31"
+    }
+    Melbourne {
+      siteCode = "086038"
+      startDate = "2018-01-01"
+      endDate = "2018-12-31"
+    }
+    Adelaide {
+      siteCode = "023000"
+      startDate = "2018-01-01"
+      endDate = "2018-12-31"
+    }
+  }
+  properties = [
+    # Spark && job specific config
+  ]
+}
+```
 
 Bom statistical data from website: `"src/main/resources/bomstatis/"`
 
