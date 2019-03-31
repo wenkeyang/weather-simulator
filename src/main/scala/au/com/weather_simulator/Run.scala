@@ -15,7 +15,7 @@ object Run extends LoggingSupport {
 
     //extract real statis from bom website
     for (elem <- appconfig.extractBomSites()) {
-      extractLocationStatis(elem.site_name, elem.site_code, elem.start_date, elem.end_date)
+      extractLocationStatis(elem.site_name, elem.site_code, elem.start_date, elem.end_date, systemconfig.bomStatisPath)
     }
 
     implicit val spark = getSparkSession(systemconfig.sparkAppName)

@@ -71,17 +71,18 @@ object BomUtiles extends LoggingSupport {
     content
   }
 
-  def extractLocationStatis(filename: String,
+  def extractLocationStatis(site_name: String,
                             site_code: String,
                             start_date: String = "2018-01-01",
-                            end_date: String = "2018-12-31") = {
-    log.info(s"statis filename:$filename, site_code:$site_code, start_date:$start_date, end_date:$end_date")
+                            end_date: String = "2018-12-31",
+                            path: String) = {
+    log.info(s"statis filename:$site_name, site_code:$site_code, start_date:$start_date, end_date:$end_date")
     val finaldataset = for (elem <- generateBOMcalendar(start_date, end_date)) yield getweatherAverage(site_code, elem)
 
-    val filewriter = new BufferedWriter(new FileWriter("src\\main\\resources\\bomstatis\\" + filename + ".csv"))
+    val filewriter = new BufferedWriter(new FileWriter(path + site_name + ".csv"))
     filewriter.write("location|monthday|maxtemp|mintemp|rainfall\n")
     finaldataset.foreach(row =>
-      filewriter.write(s"${filename}|${row.monthday}|${row.maxtemp}|${row.mintemp}|${row.rainfall}\n"))
+      filewriter.write(s"${site_name}|${row.monthday}|${row.maxtemp}|${row.mintemp}|${row.rainfall}\n"))
     filewriter.close()
   }
 }
