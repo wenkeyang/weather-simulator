@@ -140,6 +140,8 @@ Adelaide:
 
 Enter main class: `au.com.weather_simulator.Run`
 
+Application configuration file path: `"src/main/resources/appconfig.conf"`
+
 Bom statistical data from website: `"src/main/resources/bomstatis/"`
 
 Emulated data output path: `"src/main/resources/emulatedData"`
